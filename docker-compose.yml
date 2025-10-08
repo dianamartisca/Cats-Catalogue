@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres
+    container_name: my_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secretpassword
+      POSTGRES_DB: catsdb
+    ports:
+      - "9000:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  web:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: devops_web
+    restart: on-failure
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://admin:secretpassword@postgres:5432/catsdb
+      DATABASE_HOST: postgres
+      DATABASE_PORT: "5432"
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend/:/app:cached
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: devops_frontend
+    restart: on-failure
+    ports:
+      - "5173:80"
+
+volumes:
+  postgres_data:
