@@ -23,6 +23,11 @@ jobs:
       - name: Force Python Version
         run: echo "PYTHONPATH=$(python -c 'import sys; print(sys.executable)')" >> $GITHUB_ENV
 
+      - name: Debug Python Version
+        run: |
+          python --version
+          echo $PYTHONPATH
+
       - name: Install dependencies
         run: pip install -r backend/requirements.txt
 
