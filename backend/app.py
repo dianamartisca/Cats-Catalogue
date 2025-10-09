@@ -15,7 +15,7 @@ with app.app_context():
 
 with app.app_context():
     try:
-        db.drop_all()
+        #db.drop_all()
         db.create_all()
         print("Tables created successfully")
     except Exception as e:

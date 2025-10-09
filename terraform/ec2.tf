@@ -3,7 +3,7 @@ resource "aws_instance" "myinstance1" {
   instance_type          = var.instance_type
   subnet_id              = aws_subnet.mysubnet1.id
   vpc_security_group_ids = [aws_security_group.mysg.id]
-  user_data              = file("${path.module}/instance1-setup.sh")
+  user_data              = file("${path.module}/instance-setup.sh")
 
   tags = {
     Name        = "${var.project_name}-instance-1"
@@ -16,7 +16,7 @@ resource "aws_instance" "myinstance2" {
   instance_type          = var.instance_type
   subnet_id              = aws_subnet.mysubnet2.id
   vpc_security_group_ids = [aws_security_group.mysg.id]
-  user_data              = file("${path.module}/instance2-setup.sh")
+  user_data              = file("${path.module}/instance-setup.sh")
 
   tags = {
     Name        = "${var.project_name}-instance-2"
