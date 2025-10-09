@@ -15,18 +15,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Cache pip dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: pip-cache-${{ runner.os }}-${{ hashFiles('**/requirements.txt') }}-${{ github.run_id }}
-          restore-keys: |
-            pip-cache-${{ runner.os }}-
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.10
+
+      - name: Force Python Version
+        run: echo "PYTHONPATH=$(python -c 'import sys; print(sys.executable)')" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: pip install -r backend/requirements.txt
