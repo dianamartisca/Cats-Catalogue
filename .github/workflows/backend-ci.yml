@@ -15,6 +15,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: pip-cache-${{ runner.os }}-${{ hashFiles('**/requirements.txt') }}-${{ github.run_id }}
+          restore-keys: |
+            pip-cache-${{ runner.os }}-
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
