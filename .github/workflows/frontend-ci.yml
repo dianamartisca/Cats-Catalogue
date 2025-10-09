@@ -23,5 +23,8 @@ jobs:
       - name: Install dependencies
         run: npm install --prefix frontend
 
+      - name: Fix permissions for Vite
+        run: chmod +x frontend/node_modules/.bin/vite
+
       - name: Build frontend
         run: npm run build --prefix frontend
